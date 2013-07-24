@@ -4,16 +4,13 @@ using System.Collections;
 public class HandTracker : MonoBehaviour
 {
     static Leap.Controller controller;
-
     const float CoordinateScale = 1.0f / 200;
-
     public int handIndex;
     public GameObject fingerPrefab;
-
     GameObject[] fingers;
-
     [HideInInspector]
-    public float openness;
+    public float
+        openness;
 
     static Vector3 ConvertVector (Leap.Vector v)
     {
@@ -60,5 +57,7 @@ public class HandTracker : MonoBehaviour
 
         openness = Mathf.Lerp (openness, FingerDistanceToOpenness (maxDistance), 0.1f);
         transform.localScale = Vector3.one * openness * 0.5f;
+
+        renderer.enabled = frame.Hands [handIndex].IsValid;
     }
 }
